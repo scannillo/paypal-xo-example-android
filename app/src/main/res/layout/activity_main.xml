@@ -6,14 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
+    <com.paypal.checkout.paymentbutton.PaymentButtonContainer
+        android:id="@+id/payment_button_container"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button"
-        android:enabled="false"
-        tools:layout_editor_absoluteX="154dp"
-        tools:layout_editor_absoluteY="348dp"
+        android:visibility="gone"
+        app:paypal_button_shape="rectangle"
+        app:paypal_button_size="large"
+        app:paypal_button_enabled="true"
+        tools:ignore="MissingConstraints"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
