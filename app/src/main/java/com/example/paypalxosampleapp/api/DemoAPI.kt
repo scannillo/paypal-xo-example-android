@@ -1,4 +1,4 @@
-package com.example.paypalxosampleapp
+package com.example.paypalxosampleapp.api
 
 import com.google.gson.JsonObject
 import retrofit2.http.Body

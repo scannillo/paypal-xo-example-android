@@ -1,4 +1,4 @@
-package com.example.paypalxosampleapp
+package com.example.paypalxosampleapp.api
 
 data class Order(
     val id: String? = null,
