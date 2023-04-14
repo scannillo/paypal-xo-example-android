@@ -17,7 +17,6 @@ object RetrofitClient {
             .addInterceptor(mHttpLoggingInterceptor)
             .build()
 
-
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())

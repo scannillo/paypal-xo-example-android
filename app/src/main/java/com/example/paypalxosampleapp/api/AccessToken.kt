@@ -6,4 +6,3 @@ data class AccessToken(
     @SerializedName("access_token")
     val value: String
 )
-
