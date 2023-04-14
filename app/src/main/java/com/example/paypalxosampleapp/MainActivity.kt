@@ -1,6 +1,7 @@
 package com.example.paypalxosampleapp
 
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -9,9 +10,13 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import androidx.lifecycle.lifecycleScope
+import com.example.paypalxosampleapp.api.*
 import com.example.paypalxosampleapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
+    var demoAPI = RetrofitClient.getInstance().create(DemoAPI::class.java)
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
@@ -31,6 +36,43 @@ class MainActivity : AppCompatActivity() {
         binding.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
+        }
+
+        fetchAccessToken()
+        fetchOrderID()
+    }
+
+    fun fetchAccessToken() {
+        lifecycleScope.launchWhenCreated {
+            try {
+                val accessToken = demoAPI.fetchAccessToken()
+                Log.e("Fetched access token: ", accessToken.value)
+            } catch (Ex: Exception) {
+                Log.e("Error", Ex.localizedMessage)
+            }
+        }
+    }
+
+    fun fetchOrderID() {
+        val orderRequest = OrderRequest(
+            intent = "AUTHORIZE",
+            purchaseUnit = listOf(
+                PurchaseUnit(
+                    Amount(
+                        currencyCode = "USD",
+                        value = "10.99"
+                    )
+                )
+            )
+        )
+
+        lifecycleScope.launchWhenCreated {
+            try {
+                val order = demoAPI.createOrder(orderRequest)
+                Log.e("Fetched orderID: ", order.id)
+            } catch (Ex: Exception) {
+                Log.e("Error", Ex.localizedMessage)
+            }
         }
     }
 
